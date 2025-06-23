@@ -2,18 +2,18 @@
 
 Bakmi bakmi;
 
-// กำหนดพิน Analog ที่ต้องการใช้งาน
-const uint8_t analogPins[] = {PA2, PA4, PA5};
-const int analogThresholds[] = {500, 600, 700};  // เทียบแต่ละช่อง
+// Define analog pins and thresholds
+const uint8_t analogPins[] = {PA2, PA4, PA5}; // example analog pins
+const int analogThresholds[] = {500, 600, 700};  // example thresholds for each analog pin
 
 void setup() {
   Serial.begin(9600);
-  bakmi.begin();  // เริ่มใช้งาน
+  bakmi.begin();  
 
-  // ตั้งค่าพิน analog และ threshold
+  // set analog pins and thresholds
   bakmi.setAnalogPins(analogPins, analogThresholds, 3);
 
-  // ตั้งเซอร์โวเริ่มต้น
+  // Set servo to initial position
   bakmi.writeServo(90);
   // botton start Munual
   while (bakmi.startManualState())
@@ -24,14 +24,14 @@ void setup() {
 }
 
 void loop() {
-  bakmi.update();  // อ่านค่า start module
+  bakmi.update();  // start module
 
-  // อ่านโหมดจาก DIP switch (1-8)
+  // DIP switch (1-8)
   uint8_t mode = bakmi.getMode();
   Serial.print("Mode: ");
   Serial.println(mode);
 
-  // ตรวจ threshold
+  //  threshold
   for (uint8_t i = 0; i < 3; i++) {
     int val = bakmi.readAnalog(i);
     bool ok = bakmi.checkThreshold(i);
@@ -43,7 +43,7 @@ void loop() {
     Serial.println(ok ? "YES" : "NO");
   }
 
-  // ถ้า start module ถูกกด (PB11 == HIGH)
+  // start module 
   if (bakmi.startModuleState()) {
     Serial.println("START MODULE ACTIVE");
     bakmi.forward(200);
