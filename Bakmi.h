@@ -26,6 +26,7 @@ public:
     // Start Module
     void update();
     bool startModuleState();
+    bool startManualState();
 
     // Analog Input
     void setAnalogPins(const uint8_t* pins, const int* thresholds, uint8_t count);
@@ -44,7 +45,7 @@ private:
 
     // Start module state
     bool _startModuleState;
-    bool startManualState();
+    
 
 };
 

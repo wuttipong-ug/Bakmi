@@ -111,6 +111,6 @@ int Bakmi::readAnalog(uint8_t index) {
 }
 
 bool Bakmi::startManualState() {
-    return digitalRead(START_MANUAL) == LOW;
+    return !digitalRead(START_MANUAL);
 }
 
